@@ -2,9 +2,9 @@ require 'redmine'
 
 Redmine::Plugin.register :redmine_gantt_with_date do
   name 'Redmine Gantt With Date plugin'
-  author 'Author name'
-  description 'This is a plugin for Redmine'
+  author 'MAEDA Go'
+  description 'replace cweek with day on the gannt chart.'
   version '0.0.1'
-  url 'http://example.com/path/to/plugin'
-  author_url 'http://example.com/about'
+  url 'https://github.com/vividtone/redmine_gantt_with_date'
+  author_url 'https://www.facebook.com/MAEDA.Go'
 end
