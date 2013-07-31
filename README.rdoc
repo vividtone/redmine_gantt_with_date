@@ -2,4 +2,4 @@
 
 Replaces cweek with day on Redmine's gannt chart.
 
-http://cloud.github.com/downloads/vividtone/redmine_gantt_with_date/gantt_with_date.png
+https://raw.github.com/vividtone/redmine_gantt_with_date/master/screenshot.png
