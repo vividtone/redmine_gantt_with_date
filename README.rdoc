@@ -3,3 +3,13 @@
 Replaces cweek with day on Redmine's gannt chart.
 
 https://raw.github.com/vividtone/redmine_gantt_with_date/master/screenshot.png
+
+= Compatible
+
+Only => 2.4.X
+
+= Caution
+
+This plugin is overwritten the view(show.html) for gantt.
+
+So can't use any plugin use the view(show.html) for gantt at the same time.
