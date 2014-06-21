@@ -184,6 +184,32 @@
 
 <% ###### Weeks headers ###### %>
 <% if show_weeks %>
+  <%# gantt_with_date begin %>
+  <% if zoom >= 16 %>
+    <%
+      left = 0
+      height = header_height - 1
+      dt = @gantt.date_from
+    %>
+    <% (@gantt.date_from .. @gantt.date_to).each do |dt| %>
+      <%
+        width =  zoom - 1
+        style  = ""
+        style += "left: #{left}px;"
+        style += "top:19px;"
+        style += "width: #{width}px;"
+        style += "height: #{height}px;"
+        style += "font-size:0.7em;"
+        clss = "gantt_hdr"
+      %>
+      <%= content_tag(:div, :style => style, :class => clss) do %>
+        <%= dt.day %>
+      <% end %>
+      <% left = left + width + 1 %>
+    <% end %>
+  <% else %>
+  <%# gantt_with_date end %>
+
   <%
     left = 0
     height = (show_days ? header_height - 1 : header_height - 1 + g_height)
@@ -230,6 +256,8 @@
     %>
   <% end %>
 <% end %>
+<% end %>
+
 
 <% ###### Days headers ####### %>
 <% if show_days %>
