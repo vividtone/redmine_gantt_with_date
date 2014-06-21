@@ -123,7 +123,7 @@ if show_weeks
     width = ((week_f + 6 <= @gantt.date_to) ? 7 * zoom - 1 : (@gantt.date_to - week_f + 1) * zoom - 1).to_i
     %>
     <div style="left:<%= left %>px;top:19px;width:<%= width %>px;height:<%= height %>px;" class="gantt_hdr">
-    <small><%= week_f.cweek if width >= 16 %></small>
+    <small><%= week_f.day if width >= 16 %></small>
     </div>
     <%
     left = left + width + 1
