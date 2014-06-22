@@ -247,7 +247,7 @@
     %>
     <%= content_tag(:div, :style => style, :class => "gantt_hdr") do %>
       <%= content_tag(:small) do %>
-        <%= week_f.cweek if width >= 16 %>
+        <%= week_f.day if width >= 16 %> <%# gantt_with_date %>
       <% end %>
     <% end %>
     <%
@@ -255,9 +255,8 @@
       week_f = week_f + 7
     %>
   <% end %>
+  <% end %>
 <% end %>
-<% end %>
-
 
 <% ###### Days headers ####### %>
 <% if show_days %>
