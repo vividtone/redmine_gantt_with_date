@@ -90,13 +90,20 @@
   headers_height = header_height
   show_weeks = false
   show_days  = false
+  show_days_of_month = false  # gantt_with_date
 
   if @gantt.zoom > 1
     show_weeks = true
     headers_height = 2 * header_height
     if @gantt.zoom > 2
-        show_days = true
-        headers_height = 3 * header_height
+      show_days = true
+      headers_height = 3 * header_height
+      # gantt_with_date begin
+      if @gantt.zoom > 3
+        show_weeks = false
+        show_days_of_month = true
+      end
+      # gantt_with_date end
     end
   end
 
@@ -184,32 +191,6 @@
 
 <% ###### Weeks headers ###### %>
 <% if show_weeks %>
-  <%# gantt_with_date begin %>
-  <% if zoom >= 16 %>
-    <%
-      left = 0
-      height = header_height - 1
-      dt = @gantt.date_from
-    %>
-    <% (@gantt.date_from .. @gantt.date_to).each do |dt| %>
-      <%
-        width =  zoom - 1
-        style  = ""
-        style += "left: #{left}px;"
-        style += "top:19px;"
-        style += "width: #{width}px;"
-        style += "height: #{height}px;"
-        style += "font-size:0.7em;"
-        clss = "gantt_hdr"
-      %>
-      <%= content_tag(:div, :style => style, :class => clss) do %>
-        <%= dt.day %>
-      <% end %>
-      <% left = left + width + 1 %>
-    <% end %>
-  <% else %>
-  <%# gantt_with_date end %>
-
   <%
     left = 0
     height = (show_days ? header_height - 1 : header_height - 1 + g_height)
@@ -244,10 +225,11 @@
       style += "top: 19px;"
       style += "width: #{width}px;"
       style += "height: #{height}px;"
+      style += "text-align: left;"
     %>
     <%= content_tag(:div, :style => style, :class => "gantt_hdr") do %>
       <%= content_tag(:small) do %>
-        <%= week_f.cweek if width >= 16 %>
+        <%= week_f.day if width >= 16 %>  <%# gantt_with_date %>
       <% end %>
     <% end %>
     <%
@@ -256,8 +238,36 @@
     %>
   <% end %>
 <% end %>
-<% end %>
 
+<%# gantt_with_date begin %>
+<% ###### Days of month headers ###### %>
+<% if show_days_of_month %>
+  <%
+    left = 0
+    height = header_height - 1
+  %>
+  <% (@gantt.date_from .. @gantt.date_to).each do |dt| %>
+    <%
+      wday = dt.cwday
+      width =  zoom - 1
+      style  = ""
+      style += "left: #{left}px;"
+      style += "top: 19px;"
+      style += "width: #{width}px;"
+      style += "height: #{height}px;"
+      style += "font-size:0.7em;"
+      style += "color: blue;" if wday == 6;
+      style += "color: red;"  if wday == 7;
+      clss = "gantt_hdr"
+      clss << " nwday" if @gantt.non_working_week_days.include?(wday)
+    %>
+    <%= content_tag(:div, :style => style, :class => clss) do %>
+      <%= dt.day %>
+    <% end %>
+    <% left = left + width + 1 %>
+  <% end %>
+<% end %>
+<%# gantt_with_date end %>
 
 <% ###### Days headers ####### %>
 <% if show_days %>
@@ -271,10 +281,12 @@
       width =  zoom - 1
       style  = ""
       style += "left: #{left}px;"
-      style += "top:37px;"
+      style += "top: 37px;"
       style += "width: #{width}px;"
       style += "height: #{height}px;"
       style += "font-size:0.7em;"
+      style += "color: blue;" if wday == 6;
+      style += "color: red;"  if wday == 7;
       clss = "gantt_hdr"
       clss << " nwday" if @gantt.non_working_week_days.include?(wday)
     %>
