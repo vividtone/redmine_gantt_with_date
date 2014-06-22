@@ -225,7 +225,7 @@
       style += "top: 19px;"
       style += "width: #{width}px;"
       style += "height: #{height}px;"
-      style += "text-align: left"
+      style += "text-align: left;"
     %>
     <%= content_tag(:div, :style => style, :class => "gantt_hdr") do %>
       <%= content_tag(:small) do %>
@@ -248,15 +248,17 @@
   %>
   <% (@gantt.date_from .. @gantt.date_to).each do |dt| %>
     <%
+      wday = dt.cwday
       width =  zoom - 1
       style  = ""
       style += "left: #{left}px;"
-      style += "top:19px;"
+      style += "top: 19px;"
       style += "width: #{width}px;"
       style += "height: #{height}px;"
       style += "font-size:0.7em;"
+      style += "color: blue;" if wday == 6;
+      style += "color: red;"  if wday == 7;
       clss = "gantt_hdr"
-      wday = dt.cwday
       clss << " nwday" if @gantt.non_working_week_days.include?(wday)
     %>
     <%= content_tag(:div, :style => style, :class => clss) do %>
@@ -279,10 +281,12 @@
       width =  zoom - 1
       style  = ""
       style += "left: #{left}px;"
-      style += "top:37px;"
+      style += "top: 37px;"
       style += "width: #{width}px;"
       style += "height: #{height}px;"
       style += "font-size:0.7em;"
+      style += "color: blue;" if wday == 6;
+      style += "color: red;"  if wday == 7;
       clss = "gantt_hdr"
       clss << " nwday" if @gantt.non_working_week_days.include?(wday)
     %>
