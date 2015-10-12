@@ -1,5 +1,10 @@
 = gantt_with_date
 
+*This plugin is not maintained anymore. Redmine 3.2.0 have the same feature which this plugin provides.*
+http://www.redmine.org/issues/3034
+
+---
+
 Replaces cweek with day on Redmine's gannt chart.
 
 https://raw.github.com/vividtone/redmine_gantt_with_date/master/screenshot.png
